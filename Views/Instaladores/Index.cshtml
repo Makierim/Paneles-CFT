@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Paneles_CFT.Models.Instalador>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UsernameInstalador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombresInstalador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ApellidosInstalador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DireccionInstalador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TelefonoInstalador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SueldoInstalador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ContrasenaInstalador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdRolInstaladorNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UsernameInstalador)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombresInstalador)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApellidosInstalador)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DireccionInstalador)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TelefonoInstalador)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SueldoInstalador)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContrasenaInstalador)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdRolInstaladorNavigation.IdRol)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.RunInstalador">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.RunInstalador">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.RunInstalador">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

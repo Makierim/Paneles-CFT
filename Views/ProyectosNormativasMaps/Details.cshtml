@@ -1,0 +1,36 @@
+﻿@model Paneles_CFT.Models.ProyectosNormativasMap
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>ProyectosNormativasMap</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EsObligatoria)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EsObligatoria)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CodigoNormativaPsNsNavigation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CodigoNormativaPsNsNavigation.CodigoNormativa)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdProyectoPsNsNavigation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdProyectoPsNsNavigation.IdProyecto)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.IdProyectosNormativas">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

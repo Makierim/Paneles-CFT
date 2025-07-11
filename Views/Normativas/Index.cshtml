@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Paneles_CFT.Models.Normativa>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TituloNormativa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DescripcionUrlNormativa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoNormativa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RegionNormativa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ComunaNormativa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InstitucionNormativa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaPublicacionNormativa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaInicioVigencia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaFinVigencia)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TituloNormativa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DescripcionUrlNormativa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoNormativa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegionNormativa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ComunaNormativa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InstitucionNormativa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaPublicacionNormativa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaInicioVigencia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaFinVigencia)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CodigoNormativa">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CodigoNormativa">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CodigoNormativa">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

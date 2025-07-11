@@ -1,0 +1,72 @@
+﻿@model Paneles_CFT.Models.Instalador
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Instalador</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="RunInstalador" class="control-label"></label>
+                <input asp-for="RunInstalador" class="form-control" />
+                <span asp-validation-for="RunInstalador" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UsernameInstalador" class="control-label"></label>
+                <input asp-for="UsernameInstalador" class="form-control" />
+                <span asp-validation-for="UsernameInstalador" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NombresInstalador" class="control-label"></label>
+                <input asp-for="NombresInstalador" class="form-control" />
+                <span asp-validation-for="NombresInstalador" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ApellidosInstalador" class="control-label"></label>
+                <input asp-for="ApellidosInstalador" class="form-control" />
+                <span asp-validation-for="ApellidosInstalador" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DireccionInstalador" class="control-label"></label>
+                <input asp-for="DireccionInstalador" class="form-control" />
+                <span asp-validation-for="DireccionInstalador" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TelefonoInstalador" class="control-label"></label>
+                <input asp-for="TelefonoInstalador" class="form-control" />
+                <span asp-validation-for="TelefonoInstalador" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SueldoInstalador" class="control-label"></label>
+                <input asp-for="SueldoInstalador" class="form-control" />
+                <span asp-validation-for="SueldoInstalador" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContrasenaInstalador" class="control-label"></label>
+                <input asp-for="ContrasenaInstalador" class="form-control" />
+                <span asp-validation-for="ContrasenaInstalador" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdRolInstalador" class="control-label"></label>
+                <select asp-for="IdRolInstalador" class ="form-control" asp-items="ViewBag.IdRolInstalador"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

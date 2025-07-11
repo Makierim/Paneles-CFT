@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Paneles_CFT.Models.Cliente>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UsernameCliente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombresCliente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DireccionCliente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TelefonoCliente)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UsernameCliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombresCliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DireccionCliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TelefonoCliente)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.RunCliente">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.RunCliente">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.RunCliente">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

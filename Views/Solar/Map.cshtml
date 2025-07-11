@@ -1,0 +1,122 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Mapa de Cálculo Solar";
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mapa de Instalación Solar</title>
+    <style>
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<h1>@ViewData["Title"]</h1>
+
+<p>Haz clic en el mapa para seleccionar una ubicación y obtener la radiación solar</p>
+
+<!-- Contenedor del mapa -->
+<div id="map" style="height: 500px; width: 100%;"></div>
+
+<!-- Muestra las coordenadas seleccionadas -->
+<p id="coordinates"></p>
+
+<!-- Muestra los resultados de la radiación solar -->
+<p id="solarData"></p>
+
+<script>
+    let map;
+    let marker;
+    let center = { lat: -37.7973327, lng: -72.7089080};
+
+    async function initMap() {
+        // Solicitar las bibliotecas necesarias
+        const { Map, InfoWindow } = await google.maps.importLibrary("maps");
+        const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+
+        map = new Map(document.getElementById('map'), {
+            center,
+            zoom: 10,
+            mapId: "DEMO_MAP_ID",
+        });
+
+        // Crear el marcador arrastrable
+        const draggableMarker = new AdvancedMarkerElement({
+            map: map,
+            position: center,
+            gmpDraggable: true,
+            title: "Arrastra este marcador",
+        });
+
+        // Crear una ventana de información
+        const infoWindow = new InfoWindow();
+        
+        // Evento para cuando se termine de arrastrar el marcador
+        draggableMarker.addListener("dragend", (event) => {
+            const position = draggableMarker.position;
+            
+            // Cerrar la ventana de información anterior
+            infoWindow.close();
+
+            // Mostrar coordenadas
+            const content = `
+                <style>
+                    h3#info, p#info { 
+                        color: black;
+                    }
+                </style>
+                <div>
+                    <h3 id="info">Ubicación</h3>
+                    <p id="info">Pin soltado en:</p>
+                    <p id="info"><strong>Lat:</strong> ${position.lat}, <strong>Lng:</strong> ${position.lng}</p>
+                </div>
+            `;
+
+
+            // Establecer el contenido de la nueva ventana de información
+            infoWindow.setContent(content);
+
+            // Establecer la posición de la ventana de información en el marcador
+            infoWindow.setPosition(position);
+
+            // Mostrar la ventana de información en el mapa
+            infoWindow.open(map);
+
+            // Mostrar las coordenadas en la página
+            document.getElementById('coordinates').innerText = `Lat: ${position.lat}, Lng: ${position.lng}`;
+
+            // Hacer una llamada a la API para obtener la radiación solar (Configurar API Solar)
+            getSolarData(position.lat, position.lng); // Usamos las coordenadas del marcador
+        });
+    }
+
+    // Función para obtener radiación solar
+    async function getSolarData(lat, lng) {
+        const apiKey = 'AIzaSyD5ToidrAXpxR_glRnvnaEf_of4r7JXcEI';
+
+        const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+        const endpoint = `https://solarpower.googleapis.com/v1/solar/estimate?lat=${lat}&lng=${lng}&key=${apiKey}`;
+
+        try {
+            const response = await fetch(proxyUrl + endpoint);
+            const data = await response.json();
+
+            // Mostrar los datos de radiación solar en la página
+            const radiation = data.estimatedSolarRadiation || 'No data available';
+            document.getElementById('solarData').innerText = `Radiación solar estimada: ${radiation} W/m²`;
+        } catch (error) {
+            console.error('Error obteniendo los datos solares:', error);
+            document.getElementById('solarData').innerText = 'Error al obtener los datos solares.';
+        }
+    }
+</script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5ToidrAXpxR_glRnvnaEf_of4r7JXcEI&loading=async&v=weekly&callback=initMap&libraries=marker" async defer></script>
+</body>
+</html>

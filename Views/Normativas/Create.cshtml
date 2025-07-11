@@ -1,0 +1,78 @@
+﻿@model Paneles_CFT.Models.Normativa
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Normativa</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CodigoNormativa" class="control-label"></label>
+                <input asp-for="CodigoNormativa" class="form-control" />
+                <span asp-validation-for="CodigoNormativa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TituloNormativa" class="control-label"></label>
+                <input asp-for="TituloNormativa" class="form-control" />
+                <span asp-validation-for="TituloNormativa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DescripcionUrlNormativa" class="control-label"></label>
+                <input asp-for="DescripcionUrlNormativa" class="form-control" />
+                <span asp-validation-for="DescripcionUrlNormativa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TipoNormativa" class="control-label"></label>
+                <input asp-for="TipoNormativa" class="form-control" />
+                <span asp-validation-for="TipoNormativa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RegionNormativa" class="control-label"></label>
+                <input asp-for="RegionNormativa" class="form-control" />
+                <span asp-validation-for="RegionNormativa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ComunaNormativa" class="control-label"></label>
+                <input asp-for="ComunaNormativa" class="form-control" />
+                <span asp-validation-for="ComunaNormativa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InstitucionNormativa" class="control-label"></label>
+                <input asp-for="InstitucionNormativa" class="form-control" />
+                <span asp-validation-for="InstitucionNormativa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaPublicacionNormativa" class="control-label"></label>
+                <input asp-for="FechaPublicacionNormativa" class="form-control" />
+                <span asp-validation-for="FechaPublicacionNormativa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaInicioVigencia" class="control-label"></label>
+                <input asp-for="FechaInicioVigencia" class="form-control" />
+                <span asp-validation-for="FechaInicioVigencia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaFinVigencia" class="control-label"></label>
+                <input asp-for="FechaFinVigencia" class="form-control" />
+                <span asp-validation-for="FechaFinVigencia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

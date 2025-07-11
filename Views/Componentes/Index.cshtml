@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Paneles_CFT.Models.Componente>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreComponenbte)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoComponente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MarcaComponente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModeloComponente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreComponenbte)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoComponente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MarcaComponente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModeloComponente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CodigoComponente">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CodigoComponente">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CodigoComponente">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,56 @@
+﻿@model Paneles_CFT.Models.ProyectosComponentesMap
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>ProyectosComponentesMap</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="IdProyectosComponentes" class="control-label"></label>
+                <input asp-for="IdProyectosComponentes" class="form-control" />
+                <span asp-validation-for="IdProyectosComponentes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdProyectoPsCs" class="control-label"></label>
+                <select asp-for="IdProyectoPsCs" class ="form-control" asp-items="ViewBag.IdProyectoPsCs"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="CodigoComponentePsCs" class="control-label"></label>
+                <select asp-for="CodigoComponentePsCs" class ="form-control" asp-items="ViewBag.CodigoComponentePsCs"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cantidad" class="control-label"></label>
+                <input asp-for="Cantidad" class="form-control" />
+                <span asp-validation-for="Cantidad" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaInstalacionComponente" class="control-label"></label>
+                <input asp-for="FechaInstalacionComponente" class="form-control" />
+                <span asp-validation-for="FechaInstalacionComponente" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EstadoUsoComponente" class="control-label"></label>
+                <input asp-for="EstadoUsoComponente" class="form-control" />
+                <span asp-validation-for="EstadoUsoComponente" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
