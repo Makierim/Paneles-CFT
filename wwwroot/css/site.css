@@ -115,3 +115,42 @@ div.table-responsive {
     display: flex;
     text-align: center;
 }
+
+/* Estilos para el mapa y la información */
+#map {
+    height: 500px;
+    width: 100%;
+}
+/* -- Estilos para la información solar -- */
+#solarDataContainer {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #DDD;
+    border-radius: 8px;
+    background-color: #FF8050;
+}
+
+#solarDataContainer h4 {
+    margin-top: 0;
+    color: white;
+}
+
+#solarDataContainer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#solarDataContainer ul li {
+    padding: 5px 0;
+    border-bottom: 1px dashed #EEE;
+}
+
+#solarDataContainer ul li:last-child {
+    border-bottom: none;
+}
+
+/* --- Estilos para la InfoWindow de Google Maps --- */
+#info {
+    color: black;
+}
