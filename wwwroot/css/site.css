@@ -41,7 +41,17 @@ table {
 }
 
 .container {
+    max-width: 1200px;
     margin: 0 auto;
+    padding: 20px;
+}
+
+.card {
+    background-color: darksalmon;
+    border-radius: 8px;
+    box_shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin_bottom: 20px;
 }
 
 .table-responsive {
@@ -55,6 +65,30 @@ table {
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="number"],
+input[type="text"],
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
 }
 
 form {
@@ -107,6 +141,21 @@ div.table-responsive {
     margin: 0 auto;
 }
 
+button {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+button:hover {
+    background-color: #0056B3;
+}
+
 .btn-sm {
     color: white;
     font-size: 15px;
@@ -120,6 +169,9 @@ div.table-responsive {
 #map {
     height: 500px;
     width: 100%;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 /* -- Estilos para la información solar -- */
 #solarDataContainer {
@@ -153,4 +205,71 @@ div.table-responsive {
 /* --- Estilos para la InfoWindow de Google Maps --- */
 #info {
     color: black;
+}
+
+.result-section {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.result-section h3 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.result-section p {
+    font-size: 1.1em;
+    margin-bottom: 8px;
+}
+
+.loading-spinner {
+    display: none; /* Oculto por defecto */
+    text-align: center;
+    padding: 20px;
+}
+
+.loading-spinner img {
+    width: 50px;
+    height: 50px;
+}
+
+.error-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.flex-container {
+    display: flex;
+    gap: 20px; /* Espacio entre los elementos flexibles */
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+}
+
+.flex-item {
+    flex: 1; /* Cada ítem ocupa el mismo espacio */
+    min-width: 300px; /* Ancho mínimo para evitar que se aplasten */
+}
+
+/* Estilos específicos para la tabla mensual */
+.monthly-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.monthly-table th, .monthly-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.monthly-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+/* Estilos para el gráfico */
+#monthlyProductionChart {
+    max-height: 400px; /* Limitar altura del gráfico */
 }

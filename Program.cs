@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddHttpClient();
 builder.Services.AddControllersWithViews();
+builder.Services.AddMemoryCache();
 
 builder.Services.AddDbContext<PanelesWebContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("conexion")));
@@ -18,6 +19,9 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     {
         options.LoginPath = "/Cuenta/Login";
     });
+
+// Configurar y registrar opciones de PVGIS API
+builder.Services.Configure<PvgisApiSettings>(builder.Configuration.GetSection("PvgisApi"));
 
 var app = builder.Build();
 
@@ -36,6 +40,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
+app.MapControllers();
 
 app.MapControllerRoute(
     name: "default",

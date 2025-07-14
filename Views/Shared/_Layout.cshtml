@@ -4,9 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Paneles CFT</title>
-    <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin="" />
+    @await RenderSectionAsync("Styles", required: false)
 </head>
 <body>
     <header>
@@ -25,7 +29,7 @@
                             <a class="nav-link text-dark @((ViewData["Title"]?.ToString() == "Página Principal") ? "active" : "")" asp-area="" asp-controller="Home" asp-action="Index">Página Principal</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark @((ViewData["Title"]?.ToString() == "Mapa de Cálculo Solar") ? "active" : "")" asp-area="" asp-controller="Solar" asp-action="Map">Mapa</a>
+                            <a class="nav-link text-dark @((ViewData["Title"]?.ToString() == "Mapa de Cálculo Solar") ? "active" : "")" asp-area="" asp-controller="Solar" asp-action="Index">Mapa</a>
                         </li>
                         <ul class="navbar-nav ms-auto align-items-center">
                             @if (User.Identity?.IsAuthenticated ?? false)
@@ -64,6 +68,10 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

@@ -1,0 +1,169 @@
+﻿@{
+    ViewData["Title"] = "Mapa de Cálculo Solar";
+}
+<div class="container">
+    <h1>Cálculo de Potencial Solar Fotovoltaico</h1>
+
+    <div class="card">
+        <h2>Ubicación del Proyecto</h2>
+        <div id="map"></div>
+        <p>Haga clic en el mapa para seleccionar la ubicación de su proyecto.</p>
+        <div class="form-group">
+            <label for="latitude">Latitud:</label>
+            <input type="text" id="latitude" name="latitude" readonly>
+        </div>
+        <div class="form-group">
+            <label for="longitude">Longitud:</label>
+            <input type="text" id="longitude" name="longitude" readonly>
+        </div>
+        <button id="getSolarDataBtn">Obtener Irradiación de Ubicación</button>
+        <div class="loading-spinner" id="solarDataSpinner">
+            <img src="~/images/spinner.gif" alt="Cargando...">
+            <p>Obteniendo datos de irradiación...</p>
+        </div>
+        <div class="error-message" id="solarDataError"></div>
+    </div>
+
+    <div class="card result-section" id="mrCalcResults" style="display:none;">
+        <h3>Resultados de Irradiación (PVGIS - MRcalc)</h3>
+        <p><strong>Irradiación Horizontal Anual Promedio:</strong> <span id="annualIrradiance"></span> kWh/m²/año</p>
+        <h4>Irradiación Mensual:</h4>
+        <table class="monthly-table">
+            <thead>
+                <tr>
+                    <th>Mes</th>
+                    <th>Irradiación (kWh/m²)</th>
+                </tr>
+            </thead>
+            <tbody id="monthlyIrradianceTableBody">
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card" id="pvSystemParametersForm">
+        <h2>Parámetros del Sistema Fotovoltaico</h2>
+        <div class="form-group">
+            <label for="peakPower">Potencia Pico del Sistema (kWp):</label>
+            <input type="number" id="peakPower" value="3.0" step="0.1" min="0.1">
+        </div>
+        <div class="form-group">
+            <label for="systemLosses">Pérdidas del Sistema (%):</label>
+            <input type="number" id="systemLosses" value="14.0" step="0.1" min="0" max="100">
+        </div>
+        <div class="form-group">
+            <label>
+                <input type="checkbox" id="getOptimalAngles">
+                Calcular Ángulos Óptimos (Inclinación y Azimut)
+            </label>
+        </div>
+        <div id="manualAngles" class="flex-container">
+            <div class="form-group flex-item">
+                <label for="inclinationAngle">Ángulo de Inclinación (°):</label>
+                <input type="number" id="inclinationAngle" value="30" step="1" min="0" max="90">
+            </div>
+            <div class="form-group flex-item">
+                <label for="azimuthAngle">Ángulo de Azimut (°):</label>
+                <input type="number" id="azimuthAngle" value="0" step="1" min="-180" max="180">
+                <small>0° = Sur, 90° = Oeste, -90° = Este, 180° = Norte</small>
+            </div>
+        </div>
+        <button id="calculatePvProductionBtn">Calcular Producción FV (PVcalc)</button>
+        <div class="loading-spinner" id="pvCalcSpinner">
+            <img src="~/images/spinner.gif" alt="Cargando...">
+            <p>Calculando producción del sistema...</p>
+        </div>
+        <div class="error-message" id="pvCalcError"></div>
+    </div>
+
+    <div class="card result-section" id="pvCalcResults" style="display:none;">
+        <h3>Estimación de Producción FV (PVGIS - PVcalc)</h3>
+        <p><strong>Producción Anual de Energía AC:</strong> <span id="pvCalcAnnualProduction"></span> kWh</p>
+        <h4>Producción Mensual:</h4>
+        <table class="monthly-table">
+            <thead>
+                <tr>
+                    <th>Mes</th>
+                    <th>Producción (kWh)</th>
+                </tr>
+            </thead>
+            <tbody id="pvCalcMonthlyProductionTableBody">
+            </tbody>
+        </table>
+        <h4>Pérdidas del Sistema:</h4>
+        <ul>
+            <li><strong>Pérdidas por Temperatura:</strong> <span id="lossTemp"></span> %</li>
+            <li><strong>Pérdidas por Irradiación (Ángulo de Incidencia):</strong> <span id="lossAOI"></span> %</li>
+            <li><strong>Pérdidas por Sombras:</strong> <span id="lossShading"></span> %</li>
+            <li><strong>Pérdidas de Sistema y Otros:</strong> <span id="lossSystem"></span> %</li>
+            <li><strong>Pérdidas Totales (PVGIS):</strong> <span id="lossTotalPvgis"></span> %</li>
+        </ul>
+        <p id="pvCalcOptimalAngles" style="display:none;">
+            <strong>Ángulo de Inclinación Óptimo Sugerido:</strong> <span id="optimalInclinationPvCalc"></span>°<br>
+            <strong>Ángulo de Azimut Óptimo Sugerido:</strong> <span id="optimalAzimuthPvCalc"></span>°
+        </p>
+    </div>
+
+    <div class="card" id="solarCalculatorParametersForm">
+        <h2>Parámetros Detallados para Cálculo Horario</h2>
+        <div class="flex-container">
+            <div class="form-group flex-item">
+                <label for="panelEfficiency">Eficiencia del Panel (%):</label>
+                <input type="number" id="panelEfficiency" value="20.0" step="0.1" min="10" max="30">
+            </div>
+            <div class="form-group flex-item">
+                <label for="panelArea">Área de un Panel (m²):</label>
+                <input type="number" id="panelArea" value="1.7" step="0.01" min="0.1" max="5">
+            </div>
+            <div class="form-group flex-item">
+                <label for="numberOfPanels">Número de Paneles:</label>
+                <input type="number" id="numberOfPanels" value="10" step="1" min="1">
+            </div>
+        </div>
+        <div class="flex-container">
+            <div class="form-group flex-item">
+                <label for="inverterEfficiency">Eficiencia del Inversor (%):</label>
+                <input type="number" id="inverterEfficiency" value="95.0" step="0.1" min="80" max="100">
+            </div>
+            <div class="form-group flex-item">
+                <label for="tempCoefficient">Coeficiente de Temperatura (%/°C):</label>
+                <input type="number" id="tempCoefficient" value="-0.4" step="0.01" min="-1" max="0">
+                <small>Ej: -0.4 = -0.004 en cálculo</small>
+            </div>
+            <div class="form-group flex-item">
+                <label for="noct">NOCT (°C):</label>
+                <input type="number" id="noct" value="45" step="1" min="20" max="60">
+            </div>
+        </div>
+        <button id="getHourlyDataBtn">Calcular Producción Horaria (seriescalc + SolarCalculator)</button>
+        <div class="loading-spinner" id="hourlyDataSpinner">
+            <img src="~/images/spinner.gif" alt="Cargando...">
+            <p>Obteniendo datos horarios y calculando producción...</p>
+        </div>
+        <div class="error-message" id="hourlyDataError"></div>
+    </div>
+
+    <div class="card result-section" id="solarCalcResults" style="display:none;">
+        <h3>Cálculo de Producción Detallada (Tu SolarCalculator)</h3>
+        <p><strong>Producción Anual de Energía AC (Tu Cálculo):</strong> <span id="solarCalcAnnualProduction"></span> kWh</p>
+        <h4>Producción Mensual (Tu Cálculo):</h4>
+        <table class="monthly-table">
+            <thead>
+                <tr>
+                    <th>Mes</th>
+                    <th>Producción (kWh)</th>
+                </tr>
+            </thead>
+            <tbody id="solarCalcMonthlyProductionTableBody">
+            </tbody>
+        </table>
+        <div style="margin-top: 20px;">
+            <h4>Producción Mensual Comparativa (Gráfico):</h4>
+            <canvas id="monthlyProductionChart"></canvas>
+        </div>
+        <p id="solarCalcOptimalAngles" style="display:none;">
+            <strong>Ángulo de Inclinación Óptimo Sugerido:</strong> <span id="optimalInclinationSolarCalc"></span>°<br>
+            <strong>Ángulo de Azimut Óptimo Sugerido:</strong> <span id="optimalAzimuthSolarCalc"></span>°
+        </p>
+    </div>
+
+</div>
